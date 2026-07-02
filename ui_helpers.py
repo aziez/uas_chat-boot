@@ -9,6 +9,7 @@ Usage:
 """
 
 import streamlit as st
+import plotly.graph_objects as go
 
 
 # ---------------------------------------------------------------------------
@@ -110,18 +111,51 @@ def divider() -> None:
 # Test-section shorthand
 # ---------------------------------------------------------------------------
 
-def render_test_section(emoji: str, title: str, description: str, df, conf_col: str = "confidence") -> int:
+def render_test_section(emoji: str, title: str, description: str, df, conf_col: str = "confidence", key: str = None) -> int:
     """
-    Render a complete test section: header + description card + dataframe + result card.
+    Render a complete test section: header + description card + dataframe + visual gauge.
 
     Returns the number of PASS cases.
     """
     section_header(emoji, title)
     info_card("🎯 Tujuan Uji", description, variant="tip")
 
-    fmt = {conf_col: "{:.2f}"} if conf_col in df.columns else {}
-    st.dataframe(df.style.format(fmt), use_container_width=True)
-
     passed = int((df["status"] == "PASS").sum())
-    result_card(passed, len(df), f"Lolos Uji {title.split(' ', 1)[-1] if ' ' in title else title}")
+    total = len(df)
+    pass_rate = passed / total if total > 0 else 0
+
+    # Visual layout: dataframe + donut gauge
+    df_col, gauge_col = st.columns([3, 1])
+    with df_col:
+        fmt = {conf_col: "{:.2f}"} if conf_col in df.columns else {}
+        st.dataframe(df.style.format(fmt), use_container_width=True)
+    with gauge_col:
+        # Donut gauge
+        color = "#10B981" if pass_rate >= 0.8 else ("#F59E0B" if pass_rate >= 0.6 else "#F87171")
+        fig = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=pass_rate * 100,
+            number=dict(suffix="%", font=dict(size=28, color="#1E1B4B")),
+            gauge=dict(
+                axis=dict(range=[0, 100], tickcolor="#6B7280", tickfont=dict(size=9)),
+                bar=dict(color=color, thickness=0.6),
+                bgcolor="rgba(0,0,0,0)",
+                steps=[
+                    dict(range=[0, 60], color="rgba(248,113,113,0.15)"),
+                    dict(range=[60, 80], color="rgba(251,191,36,0.15)"),
+                    dict(range=[80, 100], color="rgba(16,185,129,0.15)"),
+                ],
+                threshold=dict(line=dict(color="white", width=3), thickness=0.8, value=pass_rate * 100),
+            ),
+            title=dict(text=f"{passed}/{total} Lolos", font=dict(size=14, color="#6B7280")),
+            domain=dict(x=[0, 1], y=[0, 1]),
+        ))
+        fig.update_layout(
+            height=200,
+            margin=dict(l=10, r=10, t=30, b=10),
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+        )
+        st.plotly_chart(fig, use_container_width=True, key=f"gauge_{key or title}")
+
     return passed

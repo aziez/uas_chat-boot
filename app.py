@@ -8,6 +8,7 @@ import time
 from pathlib import Path
 
 import pandas as pd
+import plotly.graph_objects as go
 import streamlit as st
 
 import chatbot_engine as engine
@@ -288,10 +289,43 @@ with tab_model:
     )
 
     comparison_df = pd.DataFrame(artifacts["classifier_comparison"])
-    st.dataframe(
-        comparison_df.style.format({"cv_mean": "{:.2%}", "cv_std": "{:.2%}"}),
-        use_container_width=True,
-    )
+
+    # Bar chart + table side-by-side
+    chart_col, table_col = st.columns([2, 1])
+    with chart_col:
+        fig_clf = go.Figure()
+        for _, row in comparison_df.iterrows():
+            is_best = row["model"] == artifacts["best_model_name"]
+            fig_clf.add_trace(go.Bar(
+                x=[row["cv_mean"]],
+                y=[row["model"]],
+                orientation="h",
+                error_x=dict(type="data", array=[row["cv_std"]], visible=True),
+                marker_color="#7C3AED" if is_best else "#C4B5FD",
+                marker_line_width=2 if is_best else 0,
+                marker_line_color="#4C1D95",
+                name=row["model"],
+                text=[f"{row['cv_mean']:.1%} ± {row['cv_std']:.1%}"],
+                textposition="outside",
+            ))
+        fig_clf.update_layout(
+            title="Cross-Validation Accuracy (5-Fold)",
+            xaxis_title="Akurasi",
+            xaxis=dict(range=[0, 1.15], tickformat=".0%"),
+            yaxis=dict(autorange="reversed"),
+            height=280,
+            margin=dict(l=180, r=80, t=50, b=30),
+            plot_bgcolor="rgba(0,0,0,0)",
+            paper_bgcolor="rgba(0,0,0,0)",
+            showlegend=False,
+            font=dict(color="#1E1B4B"),
+        )
+        st.plotly_chart(fig_clf, use_container_width=True)
+    with table_col:
+        st.dataframe(
+            comparison_df.style.format({"cv_mean": "{:.2%}", "cv_std": "{:.2%}"}),
+            use_container_width=True,
+        )
     success_banner(f"✓ Model Terpenuhi (Produksi): {artifacts['best_model_name']}")
 
     # ---- Embedding comparison ----
@@ -303,10 +337,40 @@ with tab_model:
             "Classifier produksi tetap yang TF-IDF."
         )
         emb_df = pd.DataFrame(artifacts["embedding_comparison"])
-        st.dataframe(
-            emb_df.style.format({"cv_mean": "{:.2%}", "cv_std": "{:.2%}"}),
-            use_container_width=True,
+
+        # Combined bar chart: TF-IDF vs Embedding classifiers
+        best_tfidf = next(r for r in artifacts["classifier_comparison"] if r["model"] == artifacts["best_model_name"])
+        compare_rows = [{"model": best_tfidf["model"], "cv_mean": best_tfidf["cv_mean"], "cv_std": best_tfidf["cv_std"], "type": "TF-IDF"}]
+        for r in artifacts["embedding_comparison"]:
+            compare_rows.append({"model": r["model"], "cv_mean": r["cv_mean"], "cv_std": r["cv_std"], "type": "Embedding"})
+        compare_all = pd.DataFrame(compare_rows)
+
+        fig_emb = go.Figure()
+        colors = {"TF-IDF": "#7C3AED", "Embedding": "#06B6D4"}
+        for _, row in compare_all.iterrows():
+            fig_emb.add_trace(go.Bar(
+                x=[row["cv_mean"]],
+                y=[row["model"]],
+                orientation="h",
+                error_x=dict(type="data", array=[row["cv_std"]], visible=True),
+                marker_color=colors[row["type"]],
+                name=row["type"],
+                text=[f"{row['cv_mean']:.1%} ± {row['cv_std']:.1%}"],
+                textposition="outside",
+            ))
+        fig_emb.update_layout(
+            title="TF-IDF vs Embedding Classifier (5-Fold CV)",
+            xaxis=dict(range=[0, 1.15], tickformat=".0%", title="Akurasi"),
+            yaxis=dict(autorange="reversed"),
+            height=250,
+            margin=dict(l=220, r=80, t=50, b=30),
+            plot_bgcolor="rgba(0,0,0,0)",
+            paper_bgcolor="rgba(0,0,0,0)",
+            showlegend=True,
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            font=dict(color="#1E1B4B"),
         )
+        st.plotly_chart(fig_emb, use_container_width=True)
     else:
         info_card("⚠️ Layer Embedding Nonaktif",
                   "Model tidak termuat — chatbot berjalan mode TF-IDF saja.", variant="warning")
@@ -314,17 +378,72 @@ with tab_model:
     # ---- Confusion matrix & classification report ----
     divider()
     section_header("📈", "Confusion Matrix")
-    subtitle("Pada data test split")
+    subtitle("Pada data test split — hover untuk melihat detail tiap sel")
     cm_df = pd.DataFrame(artifacts["confusion_matrix"], index=artifacts["labels"], columns=artifacts["labels"])
-    st.dataframe(cm_df, use_container_width=True)
 
-    section_header("📝", "Classification Report")
-    subtitle("Pada data test split")
-    report_df = pd.DataFrame(artifacts["classification_report"]).transpose()
-    st.dataframe(
-        report_df.style.format({"precision": "{:.2f}", "recall": "{:.2f}", "f1-score": "{:.2f}", "support": "{:.0f}"}),
-        use_container_width=True,
+    fig_cm = go.Figure(data=go.Heatmap(
+        z=artifacts["confusion_matrix"],
+        x=artifacts["labels"],
+        y=artifacts["labels"],
+        colorscale="Purples",
+        text=artifacts["confusion_matrix"],
+        texttemplate="%{text}",
+        textfont=dict(size=10),
+        hovertemplate="Predicted: %{x}<br>Actual: %{y}<br>Count: %{z}<extra></extra>",
+        colorbar=dict(title="Count"),
+    ))
+    fig_cm.update_layout(
+        height=500,
+        xaxis_title="Predicted Label",
+        yaxis_title="True Label",
+        xaxis=dict(tickangle=-45, tickfont=dict(size=9)),
+        yaxis=dict(tickfont=dict(size=9)),
+        margin=dict(l=120, r=20, t=30, b=120),
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#1E1B4B"),
     )
+    st.plotly_chart(fig_cm, use_container_width=True)
+
+    # ---- Classification report ----
+    section_header("📝", "Classification Report")
+    subtitle("F1-Score per intent pada data test split")
+    report_df = pd.DataFrame(artifacts["classification_report"]).transpose()
+
+    # F1-score horizontal bar chart (exclude averages)
+    intent_metrics = report_df[~report_df.index.isin(["accuracy", "macro avg", "weighted avg"])].copy()
+    intent_metrics = intent_metrics.sort_values("f1-score", ascending=True)
+
+    fig_f1 = go.Figure()
+    fig_f1.add_trace(go.Bar(
+        y=intent_metrics.index.tolist(),
+        x=intent_metrics["f1-score"].tolist(),
+        orientation="h",
+        marker=dict(
+            color=intent_metrics["f1-score"].tolist(),
+            colorscale=[[0, "#F87171"], [0.5, "#FBBF24"], [1, "#10B981"]],
+            colorbar=dict(title="F1"),
+        ),
+        text=intent_metrics["f1-score"].apply(lambda x: f"{x:.0%}"),
+        textposition="outside",
+    ))
+    fig_f1.update_layout(
+        title="F1-Score per Intent",
+        xaxis=dict(range=[0, 1.2], tickformat=".0%", title="F1-Score"),
+        height=max(300, len(intent_metrics) * 28),
+        margin=dict(l=160, r=60, t=50, b=30),
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font=dict(color="#1E1B4B", size=10),
+    )
+    st.plotly_chart(fig_f1, use_container_width=True)
+
+    # Full report table (collapsible)
+    with st.expander("📋 Lihat Tabel Lengkap (Precision, Recall, F1, Support)"):
+        st.dataframe(
+            report_df.style.format({"precision": "{:.2f}", "recall": "{:.2f}", "f1-score": "{:.2f}", "support": "{:.0f}"}),
+            use_container_width=True,
+        )
 
     # ---- Evaluation tests (using reusable render_test_section) ----
     divider()
