@@ -175,6 +175,7 @@ with tab_chat:
         with st.chat_message(msg["role"]):
             if is_streaming:
                 st.write_stream(_typing_effect(msg["content"]))
+                st.session_state._just_streamed = False  # reset immediately after streaming
             else:
                 st.markdown(msg["content"])
             if "meta" in msg:
