@@ -9,7 +9,6 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
 
 import chatbot_engine as engine
 from train_model import (
@@ -50,11 +49,16 @@ st.set_page_config(
 # ---------------------------------------------------------------------------
 # Load external CSS & js
 # ---------------------------------------------------------------------------
-st.markdown(f"<style>{(BASE_DIR / 'style.css').read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
+_css = (BASE_DIR / 'style.css').read_text(encoding='utf-8')
+st.html(f"<style>{_css}</style>")
 
-components.html(
-    f"<script>{(BASE_DIR / 'scripts.js').read_text(encoding='utf-8')}</script>",
-    height=0,
+_js = (BASE_DIR / 'scripts.js').read_text(encoding='utf-8')
+st.html(f"<script>{_js}</script>", unsafe_allow_javascript=True)
+
+# Google Font (loaded via <link> since @import doesn't work in Streamlit)
+st.html(
+    '<link rel="stylesheet" '
+    'href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">'
 )
 
 

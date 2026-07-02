@@ -1,15 +1,9 @@
-/*
- * Toko Sembako Barokah - Chatbot UI Theme
- * Modern glassmorphism design with purple/cyan palette
- * -----------------------------------------
- * Import: st.markdown(f"<style>{Path('style.css').read_text()}</style>", unsafe_allow_html=True)
- */
+/* Toko Sembako Barokah - Chatbot UI Theme */
+/* Loaded via st.html() in app.py */
 
 /* ==========================================================================
    1. Design Tokens (CSS Custom Properties)
    ========================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
     --color-primary:       #7C3AED;

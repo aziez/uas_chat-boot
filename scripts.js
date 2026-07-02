@@ -1,19 +1,12 @@
 /**
  * Toko Sembako Barokah - Chatbot Client Scripts
- * -----------------------------------------------
  * Auto-focus chat input after every Streamlit rerun.
- * Loaded via: components.html(f"<script>{Path('scripts.js').read_text()}</script>", height=0)
+ * Note: st.html() is NOT iframed, so we use document directly.
  */
 
 (function () {
     'use strict';
 
-    var parentDoc = window.parent.document;
-
-    /**
-     * Locate the chat input textarea and focus it.
-     * Tries the official data-testid first, then falls back to class selectors.
-     */
     function focusChatInput() {
         var selectors = [
             'textarea[data-testid="stChatInputTextArea"]',
@@ -23,9 +16,9 @@
 
         var input = null;
         for (var i = 0; i < selectors.length; i++) {
-            var matches = parentDoc.querySelectorAll(selectors[i]);
+            var matches = document.querySelectorAll(selectors[i]);
             if (matches.length > 0) {
-                input = matches[matches.length - 1]; // last on page
+                input = matches[matches.length - 1];
                 break;
             }
         }
@@ -43,7 +36,7 @@
         setTimeout(focusChatInput, 100);
     });
 
-    observer.observe(parentDoc.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     // Disconnect after 5s to avoid long-running observer overhead
     setTimeout(function () {
