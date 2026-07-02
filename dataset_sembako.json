@@ -1,0 +1,164 @@
+[
+  {
+    "tag": "salam",
+    "patterns": ["Halo", "Selamat pagi", "Hai", "Permisi", "Assalamualaikum",
+      "halo min", "woy", "met pagi", "pagi min", "assalamualaikum kak"],
+    "responses": ["Halo! Selamat datang di Toko Sembako Barokah. Ada yang bisa kami bantu?"]
+  },
+  {
+    "tag": "penutup",
+    "patterns": ["Terima kasih", "Makasih ya", "Oke sip", "Sudah cukup", "Sampai jumpa",
+      "makasi ya", "thanks ya", "sip deh", "udah cukup segini", "oke makasih infonya", "dadah"],
+    "responses": ["Sama-sama, terima kasih sudah berbelanja di Toko Sembako Barokah!"]
+  },
+  {
+    "tag": "jam_operasional",
+    "patterns": ["Jam berapa toko buka?", "Kapan toko tutup?", "Buka dari jam berapa?", "Apakah buka hari minggu?", "Jam operasional toko",
+      "toko buka jam brp", "buka jam berapaan", "jam brp tutup", "masi buka ga", "toko udah tutup blm", "buka stiap hari ga"],
+    "responses": ["Toko kami buka setiap hari pukul 06.00 - 21.00 WIB, termasuk hari Minggu."]
+  },
+  {
+    "tag": "lokasi_toko",
+    "patterns": ["Dimana alamat tokonya?", "Lokasi toko sembako dimana?", "Alamat lengkap toko", "Toko ini di daerah mana?", "Share lokasi toko",
+      "lokasinya dmn ya", "alamat toko dmn", "tokonya dmn sih", "dmn ya alamatnya", "share lokasi dong", "maps toko mana"],
+    "responses": ["Toko kami berlokasi di Jl. Raya Pamulang No. 45, Tangerang Selatan. Bisa cek juga di Google Maps Toko Sembako Barokah."]
+  },
+  {
+    "tag": "harga_beras",
+    "patterns": ["Berapa harga beras?", "Beras 5kg harganya berapa", "Harga beras per liter", "Ada beras premium?", "Beras paling murah apa", "Beras sekarang berapa duit",
+      "beras brp duitnya", "beras skrg brapa", "harga beras gmn", "harga bearas berapa", "brapa harga braes", "beras berapaan", "ada beras ga", "beras 5kg brp"],
+    "responses": ["Harga beras mulai dari Rp 12.000/kg untuk beras medium, dan Rp 15.000/kg untuk beras premium."]
+  },
+  {
+    "tag": "harga_minyak",
+    "patterns": ["Harga minyak goreng berapa?", "Minyak goreng 1 liter harganya", "Ada minyak curah?", "Minyak goreng kemasan tersedia?", "Minyakita ada?", "Minyak goreng sekarang berapa duit",
+      "minyak brp", "minyk goreng ad ga", "harga minyk gmn", "mnyak goreng brp duit", "minyak curah ad ga", "minyakita brp", "ada minyak ga", "minyk kita gak"],
+    "responses": ["Minyak goreng kemasan 1 liter Rp 17.000, dan Minyakita tersedia dengan harga subsidi Rp 15.500/liter."]
+  },
+  {
+    "tag": "harga_gula",
+    "patterns": ["Harga gula pasir berapa?", "Gula 1kg berapa", "Ada gula merah?", "Gula pasir tersedia?", "Berapa harga gula hari ini", "Gula sekarang berapa duit",
+      "gula brp", "harga gula gmn", "gula pasir ad ga", "gla berapa", "gula skrg brp duit", "ad gula merah ga", "gula brp duitnya"],
+    "responses": ["Gula pasir dijual Rp 16.000/kg dan gula merah/aren Rp 20.000/kg."]
+  },
+  {
+    "tag": "harga_telur",
+    "patterns": ["Harga telur berapa?", "Telur 1kg berapa duit", "Ada telur ayam kampung?", "Telur ayam negeri harga", "Telur sekilo berapa",
+      "telur brp", "harga telor berapa", "telr sekilo brp", "ad telur kampung ga", "telur brp duit", "telor ayam brp", "harga telur gmn"],
+    "responses": ["Telur ayam negeri Rp 28.000/kg, sedangkan telur ayam kampung Rp 45.000/kg."]
+  },
+  {
+    "tag": "harga_tepung",
+    "patterns": ["Harga tepung terigu berapa?", "Tepung segitiga biru harganya", "Ada tepung beras?", "Tepung terigu 1kg berapa", "Jual tepung tapioka?", "Tepung sekarang berapa duit",
+      "tepung brp", "harga tpung berapa", "tepung terigu ad ga", "tepung brp duit", "ad tepung beras ga"],
+    "responses": ["Tepung terigu Rp 13.000/kg, tepung beras Rp 14.000/kg, dan tepung tapioka Rp 12.000/kg."]
+  },
+  {
+    "tag": "produk_bumbu",
+    "patterns": ["Ada bawang merah dan bawang putih?", "Jual cabai rawit?", "Ada bumbu dapur lengkap?", "Jual bawang putih kiloan?", "Cabai merah tersedia?",
+      "ad bawang ga", "cabe ad ga", "bumbu dapur lengkap ga", "jual cabe rawit ga", "bawang putih brp"],
+    "responses": ["Ya, kami menyediakan bawang merah, bawang putih, cabai rawit, cabai merah, dan bumbu dapur lainnya secara lengkap."]
+  },
+  {
+    "tag": "produk_gas_lpg",
+    "patterns": ["Jual gas LPG?", "Ada gas melon 3kg?", "Tabung gas 12kg tersedia?", "Jual isi ulang gas?", "Gas elpiji ada stok?",
+      "gas ad ga", "gas melon ad ga", "jual gas ga", "gas 3kg ad ga", "tabung gas brp"],
+    "responses": ["Ya, kami menjual gas LPG 3kg (melon) dan 12kg, selama stok dari agen masih tersedia."]
+  },
+  {
+    "tag": "cek_stok",
+    "patterns": ["Stok beras masih ada?", "Barangnya masih tersedia?", "Apakah minyak goreng masih ada stok?", "Sisa stok gula berapa?", "Masih ada atau kosong?",
+      "stoknya ad ga", "masi ad stok ga", "barang kosong ga", "stok beras masi ad ga", "ad stok ga skrg"],
+    "responses": ["Untuk cek stok terkini, silakan hubungi kami via WhatsApp di 0812-3456-7890, kami akan infokan langsung."]
+  },
+  {
+    "tag": "cara_pesan",
+    "patterns": ["Bagaimana cara pesan barang?", "Cara order sembako gimana?", "Bisa pesan lewat WA?", "Mau order gimana caranya", "Cara belanja di toko ini",
+      "cara pesen gimana", "mau order tp gmn caranya", "pesenin bisa ga", "cara pesn barang", "gimna cara order", "mau pesen dong", "order lewat wa bisa", "pesen gmn ya"],
+    "responses": ["Anda bisa datang langsung ke toko, atau order via WhatsApp 0812-3456-7890 dengan menyebutkan nama barang dan jumlahnya."]
+  },
+  {
+    "tag": "layanan_antar",
+    "patterns": ["Apakah ada layanan antar?", "Bisa diantar ke rumah?", "Ada delivery order?", "Belanja bisa dikirim?", "Antar sampai rumah bisa?",
+      "bs anter ga ke rumah", "bisa dianter ga", "anter ga barangnya", "delivery ad ga", "bs dikirim ke rumah ga"],
+    "responses": ["Ya, kami menyediakan layanan antar (delivery) untuk area sekitar toko dengan minimum pembelian Rp 50.000."]
+  },
+  {
+    "tag": "ongkos_kirim",
+    "patterns": ["Berapa ongkos kirimnya?", "Biaya antar berapa?", "Ongkir ke rumah berapa", "Gratis ongkir tidak?", "Ada biaya tambahan untuk delivery?",
+      "ongkirnya brp", "biaya anter brp", "ongkir gratis ga", "ongkirnya berapaan", "brp ongkos kirimnya"],
+    "responses": ["Ongkos kirim Rp 5.000-15.000 sesuai jarak, dan gratis ongkir untuk belanja minimal Rp 150.000."]
+  },
+  {
+    "tag": "minimum_order",
+    "patterns": ["Ada minimal pembelian?", "Minimum order berapa?", "Belanja sedikit boleh?", "Batas minimal belanja online", "Harus belanja berapa minimal",
+      "minimal belanja brp", "ad minimal order ga", "belanja dikit boleh ga", "min order berapaan", "brp minimal belanjanya"],
+    "responses": ["Untuk pembelian langsung di toko tidak ada minimum, namun untuk layanan antar minimal belanja Rp 50.000."]
+  },
+  {
+    "tag": "metode_bayar",
+    "patterns": ["Bisa bayar pakai apa saja?", "Terima transfer bank?", "Bisa bayar QRIS?", "Boleh bayar pakai OVO?", "Metode pembayaran apa saja yang diterima",
+      "bayar pake qris bs ga", "bisa transfer ga", "bayar pke apa aja", "trima qris ga", "bs bayar pke ovo ga"],
+    "responses": ["Pembayaran bisa tunai, transfer bank (BCA/BRI/Mandiri), QRIS, dan e-wallet seperti OVO/GoPay."]
+  },
+  {
+    "tag": "promo_diskon",
+    "patterns": ["Ada promo hari ini?", "Diskon untuk pembelian banyak?", "Ada potongan harga?", "Promo bulan ini apa?", "Harga grosir ada diskon?",
+      "ad diskon ga klo beli byk", "ad promo ga hari ini", "diskon berapaan", "ad potongan ga", "promo apa skrg"],
+    "responses": ["Ada diskon khusus untuk pembelian grosir (di atas 10kg) dan promo mingguan setiap hari Sabtu-Minggu."]
+  },
+  {
+    "tag": "harga_grosir",
+    "patterns": ["Ada harga grosir?", "Kalau beli banyak lebih murah?", "Harga khusus untuk kios kecil", "Jual grosiran tidak?", "Beli sak-sakan harganya beda?",
+      "harga grosir brp", "ad harga grosiran ga", "beli banyak lbh murah ga", "grosiran ad ga", "harga sak brp"],
+    "responses": ["Ya, kami melayani penjualan grosir dengan harga khusus untuk pembelian dalam jumlah besar seperti karung/sak."]
+  },
+  {
+    "tag": "jadi_reseller",
+    "patterns": ["Bagaimana cara jadi reseller?", "Bisa jadi langganan tetap?", "Mau jadi mitra toko", "Cara daftar jadi reseller sembako", "Ada program langganan bulanan?",
+      "mau jd reseller gmn caranya", "cara daftar reseller gmn", "bs jd agen ga", "gmn jd mitra toko", "reseller gmn caranya"],
+    "responses": ["Anda bisa daftar jadi reseller dengan menghubungi pemilik toko langsung, akan mendapat harga khusus dan sistem langganan bulanan."]
+  },
+  {
+    "tag": "komplain_retur",
+    "patterns": ["Barangnya rusak, bagaimana?", "Mau komplain pesanan", "Barang yang datang tidak sesuai", "Bisa retur barang?", "Cara komplain ke toko",
+      "barang gw rusak nih gmn", "koq ga sesuai pesenan", "mau komplain nih gmn", "barangnya rusk", "komplin pesenan", "barang rusak", "ga sesuai nih", "mau retur dong"],
+    "responses": ["Anda bisa langsung menghubungi kami di WhatsApp 0812-3456-7890 dengan foto bukti barang, akan kami proses penggantian/retur."]
+  },
+  {
+    "tag": "kualitas_produk",
+    "patterns": ["Apakah berasnya bagus?", "Kualitas minyak gorengnya gimana?", "Barangnya fresh tidak?", "Apakah ada tanggal expired?", "Produknya original tidak?",
+      "kualitas berasnya bgs ga", "barangnya fresh ga", "kualitasnya gmn", "produknya original ga", "berasnya bgs ga"],
+    "responses": ["Semua produk kami terjamin kualitasnya, fresh, dan memiliki tanggal kadaluarsa yang masih panjang."]
+  },
+  {
+    "tag": "kontak_toko",
+    "patterns": ["Berapa nomor WA toko?", "Ada nomor telepon yang bisa dihubungi?", "Kontak toko apa?", "Bisa hubungi kemana?", "Nomor customer service toko",
+      "nomor wa toko brp", "kontaknya apa", "no telp toko brp", "wa toko brp", "cara hubungi gmn"],
+    "responses": ["Anda bisa menghubungi kami di WhatsApp/telepon 0812-3456-7890 setiap hari jam operasional toko."]
+  },
+  {
+    "tag": "jenis_pembayaran_hutang",
+    "patterns": ["Bisa bayar belakangan?", "Boleh ngutang dulu?", "Ada sistem bon?", "Bisa dicicil bayarnya?", "Boleh bayar separuh dulu?",
+      "bs bayar blakangan", "boleh hutang dlu", "utang dulu boleh", "cicil aja boleh ga", "bisa ngutang ga", "boleh nyicil ga bayarnya", "ada sistem bon ga"],
+    "responses": ["Untuk pelanggan tetap/reseller, kami menyediakan sistem bon dengan batas waktu pembayaran yang disepakati."]
+  },
+  {
+    "tag": "identitas_bot",
+    "patterns": ["Kamu siapa?", "Ini bot ya?", "Kamu robot?", "Ini manusia atau bot?", "Sedang ngobrol sama siapa?",
+      "km bot ya", "ini siapa sih", "lg chat sm siapa", "kamu asisten apa", "ini admin manusia bukan"],
+    "responses": ["Saya asisten virtual Toko Sembako Barokah, siap membantu Anda soal info produk, harga, stok, pemesanan, pengiriman, dan pembayaran."]
+  },
+  {
+    "tag": "bantuan",
+    "patterns": ["Bisa bantu apa aja?", "Kamu bisa apa?", "Menu", "Ada fitur apa saja?", "Bantuan dong",
+      "help", "bisa tanya apa aja", "kamu bisa bantu apa", "mau tanya boleh apa aja", "list layanan"],
+    "responses": ["Saya bisa bantu soal: harga sembako (beras, minyak, gula, telur, tepung), bumbu & gas LPG, cek stok, cara pesan, layanan antar & ongkos kirim, metode pembayaran, promo & harga grosir, jadi reseller, kualitas produk, hingga komplain. Mau tanya yang mana?"]
+  },
+  {
+    "tag": "apa_kabar",
+    "patterns": ["Apa kabar?", "Gimana kabarnya?", "Sehat?", "Kabar baik?", "Pa kabar",
+      "gmn kabar", "sehat selalu ya", "apa kabar min", "baik baik aja kan", "kabarnya gimana nih"],
+    "responses": ["Alhamdulillah baik! Ada yang bisa saya bantu soal belanja sembako hari ini?"]
+  }
+]
